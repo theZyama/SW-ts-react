@@ -1,21 +1,11 @@
-import {useContext, useEffect, useState} from "react";
-import {base_url, characters, defaultHero, period_month} from "../utils/constants.ts";
-import {useParams} from "react-router-dom";
-import {SWContext} from "../utils/context.ts";
-import ErrorPage from "./ErrorPage.tsx";
+import { useEffect, useState} from "react";
+import {base_url, period_month} from "../utils/constants.ts";
+import {withErrorPage} from "../hoc/withErrorPage.tsx";
 
 const Contact = () => {
     const [planets, setPlanets] = useState(['wait...']);
 
-    const {heroId= defaultHero} = useParams();
-    const {changeHero}= useContext(SWContext);
 
-    useEffect(() => {
-        if(!characters[heroId]){
-            return;
-        }
-        changeHero(heroId);
-    }, [heroId]);
 
     async function fillPlanets(url: string) {
         const response = await fetch(url);
@@ -37,7 +27,7 @@ const Contact = () => {
         }
     }, [])
 
-    return characters[heroId] ? (
+    return (
         <form className={`w-4/5 my-0 mx-auto rounded-[5px] bg-[#f2f2f2] p-5`} onSubmit={(e) => {
             e.preventDefault();
         }}>
@@ -66,7 +56,7 @@ const Contact = () => {
             </button>
         </form>
     )
-        :<ErrorPage/>
+
 }
 
-export default Contact;
+export default withErrorPage(Contact);

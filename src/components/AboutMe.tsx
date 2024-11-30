@@ -1,20 +1,14 @@
-import {useContext, useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import {characters, defaultHero, period_month} from "../utils/constants.ts";
 import {HeroInfo} from "../utils/types";
+import {withErrorPage} from "../hoc/withErrorPage.tsx";
 import {useParams} from "react-router-dom";
-import {SWContext} from "../utils/context.ts";
-import ErrorPage from "./ErrorPage.tsx";
 
-const AboutMe = ()=> {
+const AboutMe = () => {
     const [hero, setHero] = useState<HeroInfo>();
-    const {heroId= defaultHero} = useParams();
-    const {changeHero}= useContext(SWContext);
+    const { heroId = defaultHero} = useParams();
 
     useEffect(() => {
-        if(!characters[heroId]){
-            return;
-        }
-        changeHero(heroId);
         const hero = JSON.parse(localStorage.getItem(heroId)!);
         if (hero && ((Date.now() - hero.timestamp) < period_month)) {
             setHero(hero.payload);
@@ -34,7 +28,6 @@ const AboutMe = ()=> {
                         eye_color: data.eye_color
                     }
                     setHero(info);
-
                     localStorage.setItem(heroId, JSON.stringify({
                         payload: info,
                         timestamp: Date.now()
@@ -44,19 +37,19 @@ const AboutMe = ()=> {
 
     }, [heroId])
 
-    return characters[heroId]? (
+    return (
         <>
             {(!!hero) &&
                 <div className={`text-[2em] text-justify tracking-[.2em] leading-normal ml-8`}>
                     {Object.keys(hero).map(key =>
                         <p key={key}><span
-                        className={`text-[1.25em] capitalize`}>{key.replace('_', ' ')}
-                        :</span> {hero[key as keyof HeroInfo]}</p>)}
+                            className={`text-[1.25em] capitalize`}>{key.replace('_', ' ')}
+                            :</span> {hero[key as keyof HeroInfo]}</p>)}
                 </div>
             }
         </>
+
     )
-    :<ErrorPage/>
 }
 
-export default AboutMe;
+export default withErrorPage(AboutMe);
