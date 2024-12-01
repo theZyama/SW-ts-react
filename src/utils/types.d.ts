@@ -18,7 +18,7 @@ export interface Item{
     title: string,
     path: string,
 }
-export interface Heros{
+export interface Hero{
     name: string,
     image: string,
     url: string
