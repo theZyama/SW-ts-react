@@ -3,9 +3,9 @@ import {useContext} from "react";
 import {SWContext} from "../utils/context.ts";
 import {characters} from "../utils/constants.ts";
 
-
 const Header = () => {
-    const {hero}= useContext(SWContext)
+    const {hero} = useContext(SWContext);
+
     return (
         <header className="bg-grey-color rounded-t-2xl">
             <Navigation/>

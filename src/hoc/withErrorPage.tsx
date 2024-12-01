@@ -16,5 +16,9 @@ export const withErrorPage = <T extends object>(Component: ComponentType<T>) => 
 
     }, [heroId])
 
-    return characters[heroId] ? <Component  {...props} heroId={heroId}/> : <ErrorPage/>;
+    return characters[heroId] && heroId !== defaultHero ? (
+        <Component {...props} heroId={heroId} />
+    ) : (
+        <ErrorPage />
+    )
 }

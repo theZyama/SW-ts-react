@@ -1,4 +1,4 @@
-import { useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {base_url, period_month} from "../utils/constants.ts";
 import {withErrorPage} from "../hoc/withErrorPage.tsx";
 
@@ -6,10 +6,9 @@ const Contact = () => {
     const [planets, setPlanets] = useState(['wait...']);
 
 
-
     async function fillPlanets(url: string) {
         const response = await fetch(url);
-        const data: {name:string}[] = await response.json();
+        const data: Array<{ name: string }> = await response.json();
         const planets = data.map(item => item.name);
         setPlanets(planets);
         localStorage.setItem('planets', JSON.stringify({
@@ -56,7 +55,6 @@ const Contact = () => {
             </button>
         </form>
     )
-
 }
 
 export default withErrorPage(Contact);

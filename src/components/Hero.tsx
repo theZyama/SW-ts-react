@@ -3,7 +3,7 @@ import {SWContext} from "../utils/context.ts";
 import {characters} from "../utils/constants.ts";
 
 const Hero = () => {
-    const {hero}=useContext(SWContext);
+    const {hero} = useContext(SWContext);
 
     return (
         <section className={`float-left w-1/4 mr-4`}>

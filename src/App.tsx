@@ -8,14 +8,15 @@ import {SWContext} from "./utils/context.ts";
 
 function App() {
     const [hero, setHero] = useState(defaultHero);
+
     return (
         <>
             <SWContext.Provider value={{
                 hero, changeHero: setHero
             }}>
-            <Header/>
-            <Main/>
-            <Footer/>
+                <Header/>
+                <Main/>
+                <Footer/>
             </SWContext.Provider>
         </>
     )

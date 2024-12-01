@@ -79,4 +79,4 @@ export const characters: Characters = {
     }
 };
 export const friends = Object.keys(characters);
-export const defaultHero = 'luke';
+export const defaultHero:string = "ERROR";
